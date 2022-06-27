@@ -15,7 +15,8 @@ import os
 from urllib.parse import urlparse
 
 site = 'https://de.misumi-ec.com'  # Property to extract
-num_days = 30  # Number of Days, Months to Extract
+date = '2022-06-24'
+num_days = 1  # Number of Days, Months to Extract
 creds = 'client_secrets.json'  # Credential file from GSC
 output = 'gsc_data.csv'
 
@@ -89,7 +90,7 @@ def get_dates_from_csv(path):
 
 
 # Create function to extract all the data
-def extract_data(site, creds, num_days, output):
+def extract_data(site, creds, date, num_days, output):
     domain_name = get_domain_name(site)
     create_project(domain_name)
     full_path = domain_name + '/' + output
@@ -98,8 +99,9 @@ def extract_data(site, creds, num_days, output):
     webmasters_service = authorize_creds(creds)
 
     # Set up Dates
-    end_date = datetime.date.today() - relativedelta.relativedelta(days=24)
-    start_date = end_date - relativedelta.relativedelta(days=num_days)
+    #end_date = datetime.date.today() - relativedelta.relativedelta(days=3)
+    end_date = datetime.datetime.strptime(date,'%Y-%m-%d')
+    start_date = end_date - relativedelta.relativedelta(days=num_days-1)
     delta = datetime.timedelta(days=1)  # This will let us loop one day at the time
     scDict = defaultdict(list)
 
@@ -163,4 +165,4 @@ def extract_data(site, creds, num_days, output):
     return df
 
 
-df = extract_data(site, creds, num_days, output)
+df = extract_data(site, creds, date, num_days, output)
