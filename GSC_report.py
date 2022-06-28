@@ -15,8 +15,8 @@ import os
 from urllib.parse import urlparse
 
 site = 'https://de.misumi-ec.com'  # Property to extract
-date = '2022-06-24'
-num_days = 1  # Number of Days, Months to Extract
+date = '2021-11-30'
+num_days = 72  # Number of Days, Months to Extract
 creds = 'client_secrets.json'  # Credential file from GSC
 output = 'gsc_data.csv'
 
